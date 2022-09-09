@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+void InsertionSort(int arr[],int n){
+    for (int i = 1; i < n; i++)
+    {
+        int temp=arr[i];
+        int j = i-1;
+        for (; j >= 0; j--)
+        {
+            if(arr[j]>temp){
+                arr[j+1]=arr[j];
+            }
+            else{
+                break;
+            }
+        }
+        arr[j+1]=temp;
+    }
+    
+}
+void print(int arr[],int n){
+for (int k = 0; k < n; k++)
+{
+    cout<<arr[k]<<" ";
+}
+}
+int main(){
+    int arr[7]={7,6,5,4,3,2,1};
+    InsertionSort(arr,7);
+    print(arr,7);
+
+
+return 0;
+}
