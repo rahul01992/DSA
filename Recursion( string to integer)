@@ -1,0 +1,28 @@
+int stringToNumber(char input[]) {
+    
+
+     
+    /*if(input[0]=='\0') return 0;
+    
+    
+    int small = stringToNumber(input+1);
+    
+    
+    return (input[0]-48)*pow(10,strlen(input)-1)+small;
+    */
+    
+    if(input[0]=='\0'){
+        return 0; 
+    }
+    
+    int length=strlen(input);
+    
+    int smallAns=stringToNumber(input+1);
+    
+    int first=input[0]-'0';
+    
+    int num_pow=pow(10,length-1);
+    
+    return (first*num_pow) + smallAns;
+
+}
