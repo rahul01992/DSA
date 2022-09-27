@@ -1,0 +1,60 @@
+#include<cstring>
+using namespace std;
+void merge(int input[],int s,int e){
+    int mid=(s+e)/2;
+    int len1=mid-s+1;
+    int len2=e-mid;
+    
+    //created to temp array
+    int *first=new int[len1];
+    int *second=new int[len2];
+    
+    //copy values
+    int mainArrayIndex=s;
+    for(int i=0;i<len1;i++){
+        first[i]=input[mainArrayIndex++];
+    }
+    
+    mainArrayIndex=mid+1;//updating mainArrayIndex
+    
+    for(int i=0;i<len2;i++){
+        second[i]=input[mainArrayIndex++];
+    }
+    
+    //merge two sorted arrray
+    int index1=0;
+    int index2=0;
+    mainArrayIndex=s;
+    while(index1<len1 && index2<len2){
+        if(first[index1]<second[index2]){
+            input[mainArrayIndex++]=first[index1++];
+        }else{
+        input[mainArrayIndex++]=second[index2++];}
+    }
+    
+    while(index1<len1){
+        input[mainArrayIndex++]=first[index1++];     
+    }
+    
+    while(index2<len2){
+        input[mainArrayIndex++]=second[index2++];     
+    }
+    delete []first;
+    delete []second;
+}
+
+
+void helper(int input[],int s,int e){
+    if(s>=e){
+        return ;
+    }
+    int mid=(s+e)/2; 
+    helper(input,s,mid);
+    helper(input,mid+1,e);
+    merge(input,s,e);
+    
+}
+void mergeSort(int input[], int size){
+    helper(input,0,size-1);
+        
+}
