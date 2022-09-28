@@ -1,0 +1,44 @@
+void swap(int &a,int &b){
+    int tmp=a;
+    a=b;
+    b=tmp;
+}
+int partition(int input[],int s,int e){
+    int pivot=input[s];//find pivot
+    int cnt=0;//count how many number are smaller then pivot
+    for(int i=s+1;i<=e;i++){
+        if(input[i]<=pivot){
+            cnt++;
+        }
+    }
+    int pivotIndex=s+cnt;//correct index of pivot
+    //place pivot at right position
+    swap(input[pivotIndex],input[s]);
+    
+    //left and right wala part sambhal lete hai
+    int i=s,j=e;
+    while(i<=pivotIndex && j>=pivotIndex){
+        while(input[i]<=pivot){
+            i++;
+        }
+        while(input[j]>pivot){
+            j--;
+        }
+        if(i<pivotIndex && j>pivotIndex){
+            swap(input[i++],input[j--]);
+        }
+    }
+    return pivotIndex;
+}
+void helper(int input[],int s,int e){
+    if(s>=e){
+        return ;
+    }
+   int p= partition(input,s,e);//call partitian function
+    helper(input,s,p-1);//left part sort from pivot
+    helper(input,p+1,e);//right part sort from pivot
+    
+}
+void quickSort(int input[], int size) {
+    helper(input,0,size-1);
+}
