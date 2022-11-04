@@ -1,0 +1,30 @@
+
+Node *appendLastNToFirst(Node *head, int n)
+{
+	if(head==NULL || head->next==NULL || n==0){//not condition for n
+		return head;
+	}
+    Node* temp=head;
+	int len=0;
+	Node* eTail=head;
+	while(temp!=NULL){
+		temp=temp->next;
+		len++;
+	}
+	while(eTail->next!=NULL){
+		eTail=eTail->next;
+	}
+	int count=len-n;
+	temp=head;
+	int cnt=1;
+	Node* sTail=head;
+	while(cnt<count && sTail!=NULL){//here sTail condition was missing
+		sTail=sTail->next;
+		cnt++;//cnt++ was missing
+	}
+   Node *newHead=sTail->next;
+   sTail->next=NULL;
+   eTail->next=head;
+   head=newHead;
+   return head;
+}
