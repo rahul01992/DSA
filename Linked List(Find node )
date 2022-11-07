@@ -1,0 +1,19 @@
+int findNodeRec(Node *head, int n)
+{
+	if(head==NULL){
+		return -1;
+	}
+	Node* temp=head;
+	int count=0;
+	while(temp->next!=NULL){
+		if(temp->data==n){
+			//count++;
+			return count;
+                } 
+		else {
+          temp = temp->next;
+				  count++;
+                }
+        }
+	return -1;
+}
