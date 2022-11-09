@@ -1,0 +1,57 @@
+
+class Stack {
+	// Define the data members
+    Node* head;
+    int size;
+    public:
+    Stack() {
+        // Implement the Constructor
+        head=NULL;
+        size=0;
+    }
+
+	/*----------------- Public Functions of Stack -----------------*/
+
+    int getSize() {
+       return size;
+    }
+
+    bool isEmpty() {
+      if(head==NULL){
+          return 1;
+      }
+      else{
+          return 0;
+      }
+    }
+
+    void push(int element) {
+      Node *newNode = new Node(element);
+    //   if (head == NULL) {//Already handled
+    //     newNode = head;
+    //     }
+       // Insert at head   
+        newNode->next=head;
+        head=newNode;
+        size++;
+
+    }
+
+    int pop() {
+        if(head==NULL){
+            return -1;
+        }
+        Node * temp=head;
+        head=head->next;
+        size--;
+        return temp->data;
+
+    }
+
+    int top() {
+        if(size==0){
+            return -1;
+        }
+       return head->data;
+    }
+};
