@@ -1,0 +1,21 @@
+#include<stack>
+void reverseStack(stack<int> &input, stack<int> &extra) {
+    if(input.empty()){//base condition when stack will be empty
+        return;
+    }
+    int temp=input.top();//store topn element of stack
+    input.pop();//pop that element
+    reverseStack(input,extra);//calling recursion (after recursion assume that except top all element reverce)
+    while(!input.empty()){
+        int c=input.top();
+        extra.push(c);
+        input.pop();
+    }
+    input.push(temp);
+    while(!extra.empty()){
+        int ans=extra.top();
+        input.push(ans);
+        extra.pop();
+    }
+    
+}
