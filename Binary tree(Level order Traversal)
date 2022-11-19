@@ -1,0 +1,38 @@
+BinaryTree *takeInputLevelwise()
+{
+    int rootData;//take input for root value
+    cout<<"Enter root data "<<endl;
+    cin>>rootData;
+    if (rootData== -1)//check root value (if root==-1) then return NULL
+    {
+        return NULL;
+    }
+    BinaryTree * root=new BinaryTree(rootData);//make root value node name root
+
+    queue<BinaryTree *> q;// make queue of type BinaryTree node
+    q.push(root);//push root into queue
+    while (q.size() != 0)
+    {
+        BinaryTree *front = q.front();//store front from queue
+        q.pop();//delete that front from queue
+        cout << "Enter left child of" << front->data << endl;
+        int leftchild;
+        cin >> leftchild;//take input left child of root
+        if (leftchild != -1)
+        {
+            BinaryTree *leftc = new BinaryTree(leftchild);//make left child value BinaryTree Node
+            front->left = leftc;//connect front's left to left child node
+            q.push(leftc);//push left child node into queue
+        }
+        cout << "Enter right child of" << front->data << endl;
+        int rightchild;
+        cin >> rightchild;
+        if (rightchild != -1)
+        {
+            BinaryTree *rightc = new BinaryTree(rightchild);
+            front->right = rightc;
+            q.push(rightc);
+        }
+    }
+    return root;
+}
