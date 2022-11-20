@@ -1,0 +1,26 @@
+class Solution {
+  public:
+    // Function to return the diameter of a Binary Tree.
+    pair<int,int> diameterFast(Node* root){
+        if(root==NULL){
+            pair<int,int>p=make_pair(0,0);
+            return p;
+        }
+        pair<int,int> left=diameterFast(root->left);//root k left ka diameter
+        
+        pair<int,int> right=diameterFast(root->right);//root k right ka diameter
+        
+        int opt1=left.first;//opt1 contain left wale part ka diameter
+        int opt2=right.first;//opt2 contain right wale part ka diameter
+        int opt3=1+left.second+right.second;//height total
+        
+        pair<int,int> ans;
+        ans.first=max(opt1,max(opt2,opt3));// store diameter in first block
+        ans.second=max(left.second,right.second)+1;//store height
+        return ans;
+        
+        
+    }
+    int diameter(Node* root) {
+       diameterFast(root).first;
+    }
