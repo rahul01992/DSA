@@ -1,0 +1,49 @@
+#include<cmath>
+// int height(BinaryTreeNode<int> *root){
+// 	if(root==NULL){
+// 		return 0;
+// 	}
+// 	return 1+max(height(root->left),height(root->right));
+// }
+// bool isBalanced(BinaryTreeNode<int> *root) {
+// 	if(root==NULL){
+// 		return true;
+// 	}
+// 	bool leftans=isBalanced(root->left);
+// 	bool rightans=isBalanced(root->right);
+// 	bool bf=abs(height(root->left)-height(root->right))<=1;
+// 	if(leftans && rightans && bf){
+// 		return true;
+// 	}
+// 	else{
+// 		return false;
+// 	}
+
+// }
+
+pair<bool, int> isbalancedFast(BinaryTreeNode<int> *root){
+	if(root==NULL){
+		pair<bool,int> p=make_pair(true,0);
+		return p;
+	}
+	pair<bool,int> leftch=isbalancedFast(root->left);
+    pair<bool, int> rightch = isbalancedFast(root->right);
+	bool leftAns=leftch.first;
+	bool rightAns=rightch.first;
+	
+	bool bf=abs(leftch.second-rightch.second)<=1;
+	pair<bool,int>ans;
+	ans.second=max(leftch.second,rightch.second)+1;
+	if(bf && leftAns && rightAns){
+		ans.first=true;
+	}
+	else{
+		ans.first=false;
+	}
+return ans;
+
+}
+
+bool isBalanced(BinaryTreeNode<int> *root) {
+  return isbalancedFast(root).first;
+}
