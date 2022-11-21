@@ -1,0 +1,38 @@
+public:
+    
+    pair<bool,int> isSumTreeFast(Node* root){
+        if(root==NULL){
+            pair<bool,int>p=make_pair(true,0);
+            return p;
+        }
+        if(root->left==NULL && root->right==NULL){
+            pair<bool,int>p=make_pair(true,root->data);
+            return p;
+        }
+        pair<bool,int> leftAns=isSumTreeFast(root->left);//find left tree Ans
+        pair<bool,int> rightAns=isSumTreeFast(root->right);//find right tree Ans
+        bool isleftsumTree=leftAns.first;//store left tree from left Sub tree
+        bool isrightsumTree=rightAns.first;
+        
+        int leftSum=leftAns.second;//store left subtree Sum
+        int rightSum=rightAns.second;//store right subtree Sum
+       // int sumSubTree=leftPair.second+rightPair.second;
+       bool cond=root->data==leftSum+rightSum;//check main condition of sum
+        pair<bool,int> ans;
+       
+        if(isleftsumTree && isrightsumTree && cond){
+            ans.first=true;
+             ans.second=leftSum+rightSum+root->data;//this is main condition
+        }
+        else{
+            ans.first=false;
+        }
+        return ans;
+        
+    }
+    bool isSumTree(Node* root)
+    {
+        
+        return isSumTreeFast(root).first;
+    }
+};
