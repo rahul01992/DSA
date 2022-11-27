@@ -1,0 +1,13 @@
+BinaryTreeNode<int>* removeLeafNodes(BinaryTreeNode<int> *root) {
+	if(root==NULL){
+		return NULL;
+	}
+	if(root->left==NULL && root->right==NULL){
+		return NULL;
+	}
+        BinaryTreeNode<int> *rootleft=removeLeafNodes(root->left);
+        BinaryTreeNode<int> *rootright=removeLeafNodes(root->right);
+		root->left=rootleft;
+		root->right=rootright;
+		return root;
+}
