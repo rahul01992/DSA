@@ -1,0 +1,20 @@
+TreeNode<int>* maxSumNode(TreeNode<int>* root) {
+
+
+    if(root==NULL){
+        return NULL;
+    }
+    TreeNode<int> *ans = root;//root is a node(we also need to return a node)
+    int sum = root->data;
+    for(int i=0;i<root->children.size();i++){
+      TreeNode<int> *x = maxSumNode(root->children[i]);//Recursion find the node in there subtree which sum is max (x)
+      for(int j=0;j<x->children.size();j++){
+        int xSum=x->data+x->children[j]->data;
+        if(xSum>sum){
+            ans=x;
+            sum=xSum;
+        }
+      }
+    }
+    return ans;
+}
