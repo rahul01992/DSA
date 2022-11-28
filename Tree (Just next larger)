@@ -1,0 +1,21 @@
+TreeNode<int>* getNextLargerElement(TreeNode<int>* root, int x) {
+   if(root==NULL){
+       return NULL;
+   }
+   TreeNode<int> *ans=NULL;
+   if(root->data>x){
+       ans=root;
+   }
+   for(int i=0;i<root->children.size();i++){
+     TreeNode<int> * childMax=getNextLargerElement(root->children[i], x);
+     if(childMax!=NULL){
+          if(ans==NULL){
+                ans=childMax;
+     }
+   if(childMax->data>x && childMax->data<ans->data){
+       ans=childMax;
+   }
+     }
+   }
+   return ans;
+}
