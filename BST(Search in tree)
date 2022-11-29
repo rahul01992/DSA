@@ -6,12 +6,12 @@ bool searchInBST(BinaryTreeNode<int> *root , int k) {
 		return true;
 	}
 	
-	bool ans=false;
-	if(root->right!=NULL && root->data<k){
+	bool ans=false;//it can be declare as a true also
+	if( root->data<k){
 	     ans=searchInBST(root->right,  k);
 		 
 	}
-    if (root->left!=NULL && root->data > k) {
+    if ( root->data > k) {
           ans=searchInBST(root->left, k);  
         }
 		return ans;
