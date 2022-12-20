@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#include<queue>
+void pairSum(BinaryTreeNode<int> *root, int sum) {
+	vector<int>* v= new vector<int>();
+   queue<BinaryTreeNode<int> *>q;
+   q.push(root);
+   while(q.size()!=0){
+	   BinaryTreeNode<int> *front=q.front();
+	   q.pop();
+	   (*v).push_back(front->data);
+	   if(front->right!=NULL){
+		   q.push(front->right);
+	   }
+	   if(front->left!=NULL){
+		   q.push(front->left);
+	   }
+   }
+   sort((*v).begin(),(*v).end());
+   int e=(*v).size()-1;
+   int s=0;
+   while(s<e){
+	   if((*v).at(s)+(*v).at(e)==sum){
+		   cout<<(*v).at(s)<<" "<<(*v).at(e)<<endl;
+		   s++;
+		   e--;
+	   }
+	   else if((*v).at(s)+(*v).at(e)>sum){
+		   e--;
+	   }
+	   else{
+		   s++;
+	   }
+   }
+}
