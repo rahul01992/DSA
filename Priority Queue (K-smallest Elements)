@@ -1,0 +1,24 @@
+#include<queue>
+#include<vector>
+vector<int> kSmallest(int arr[], int n, int k) {
+    vector<int>v;//creating vector
+    priority_queue<int>pq;//creating max priority queue
+
+    for(int i=0;  i<k;  i++){
+        pq.push(arr[i]);//push first k elements in max priority queue
+    }
+    for(int i=k;i<n;i++){//running loop after K elements
+        if(arr[i]<pq.top()){//check if my after K element is less then max priority queue element (YES)
+            pq.pop();//if yes then pop that element 
+            pq.push(arr[i]);//insert next element
+        }
+    }
+
+    //insert first k elements in vector
+    for(int i=0;i<k;i++){
+        v.push_back(pq.top());
+        pq.pop();
+    }
+
+    return v;
+}
