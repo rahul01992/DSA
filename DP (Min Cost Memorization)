@@ -1,0 +1,55 @@
+//Memorization
+#include <iostream>
+using namespace std;
+int Min_Cost(int **input,int m,int n,int i,int j,int **dp){
+    if(i==m-1 && j==n-1){
+        return input[i][j];
+    }
+    if(i>=m || j>=n){
+        return 1000000;
+    }
+    //If ans already exist
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    int x=Min_Cost(input,m,n,i+1,j,dp);
+    int y=Min_Cost(input,m,n,i,j+1,dp);
+    int z=Min_Cost(input,m,n,i+1,j+1,dp);
+
+    int result=min(x,min(y,z))+input[i][j];
+
+    //Save the result for future use
+    dp[i][j]=result;
+
+    return result;
+}
+int main(){
+    int m;
+    int n;
+    cout<<"Enter the number of rows and column "<<endl;
+    cin>>m>>n;
+    int **input=new int* [m*n];
+    for(int i=0;i<=m;i++){
+        for(int j=0;j<=n;j++){
+            cin>>input[i][j];
+        }
+    }
+
+    cout<<"Print the input array "<<endl;
+    for(int i=0;i<=m;i++){
+        for(int j=0;j<=n;j++){
+            cout<<input[i][j];
+        }
+    }
+    int **dp=new int* [m*n];
+    for(int i=0;i<=m;i++){
+        for(int j=0;j<=n;j++){
+            dp[i][j]=-1;
+        }
+    }
+    int ans= Min_Cost(input,m,n,0,0,dp);
+    cout<<"Ans of min cost is "<<ans<<endl;
+
+
+return 0;
+}
