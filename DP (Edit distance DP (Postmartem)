@@ -1,0 +1,121 @@
+// Edit distance
+//  Recursive approach
+#include <iostream>
+using namespace std;
+int edit_distance(string s1, string s2)
+{
+    if (s1.size() == 0)
+    {
+        return s2.size();
+    }
+    if (s2.size() == 0)
+    {
+        return s1.size();
+    }
+    if (s1[0] == s2[0])
+    {
+        return edit_distance(s1.substr(1), s2.substr(1)); // No operation required
+    }
+    else
+    {
+        // insert, delete, replace
+        int a = edit_distance(s1.substr(1), s2) + 1; // one operation performed by me
+        int b = edit_distance(s1, s2.substr(1)) + 1;
+        int c = edit_distance(s1.substr(1), s2.substr(1)) + 1;
+        return min(a, min(b, c));
+    }
+}
+
+int edit_distance_Memorization(string s1, string s2, int **output)
+{
+    int m = s1.size();
+    int n = s2.size();
+
+    if (s1.size() == 0)
+    {
+        return s2.size();
+    }
+    if (s2.size() == 0)
+    {
+        return s1.size();
+    }
+    // check if ans already exist
+    if (output[m][n] != -1)
+    {
+        return output[m][n];
+    }
+    int ans;
+    if (s1[0] == s2[0])
+    {
+        ans = edit_distance_Memorization(s1.substr(1), s2.substr(1), output); // No operation required
+    }
+    else
+    {
+        // insert, delete, replace
+        int a = edit_distance_Memorization(s1.substr(1), s2, output) + 1; // one operation performed by me
+        int b = edit_distance_Memorization(s1, s2.substr(1), output) + 1;
+        int c = edit_distance_Memorization(s1.substr(1), s2.substr(1), output) + 1;
+        ans = min(a, min(b, c));
+    }
+    output[m][n] = ans; // store the result
+    return ans;
+}
+int edit_distance_DP(string s1, string s2)
+{
+    int m = s1.size();
+    int n = s2.size();
+    // Creation of 2-D array
+    int **output = new int *[m + 1];
+    for (int i = 0; i <= m; i++)
+    {
+        output[i] = new int[n + 1];
+    }
+    for (int i = 0; i <= n; i++) // column vary (1st row)
+    {
+        output[0][i] = i;
+    }
+    for (int j = 1; j <= m; j++) // row vary (1st column)
+    {
+        output[j][0] = j;
+    }
+    for (int i = 1; i <= m; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (s1[ i] == s2[ j])
+            {
+                output[i][j] = output[i - 1][j - 1];//simply no operation needed
+            }
+            else
+            {
+                int a = output[i - 1][j] ;
+                int b = output[i][j - 1];
+                int c = output[i - 1][j - 1];
+                output[i][j] = min(a, min(b, c))+1;
+            }
+        }
+    }
+    return output[m][n];
+}
+int main()
+{
+    string s1, s2;
+    cout << "Enter two string " << endl;
+    cin >> s1;
+    cin >> s2;
+    int m = s1.size();
+    int n = s2.size();
+    int **output = new int *[m + 1];
+    for (int i = 0; i <= m; i++)
+    {
+        output[i] = new int[n + 1];
+        for (int j = 0; j <= n; j++)
+        {
+            output[i][j] = -1;
+        }
+    }
+    cout << "Answere of edit distance with MEMORIZATION is " << edit_distance_Memorization(s1, s2, output) << endl;
+    cout << "Answere of edit distance with DP is " << edit_distance_DP(s1, s2) << endl;
+    cout << "Answere of edit distance with RECURSION is " << edit_distance(s1, s2) << endl;
+    return 0;
+}
