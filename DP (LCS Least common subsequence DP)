@@ -1,0 +1,51 @@
+//Solution with DP
+#include <iostream>
+using namespace std;
+int lcs_DP(string s,string t){
+	int m=s.size();//m represent rows
+	int n=t.size();//n represent column
+
+    //Creation of output 2-D array
+	int **output=new int*[m+1];
+	for(int i=0;i<=m;i++){
+		output[i]=new int [n+1];
+	}
+
+	//Filling of  row (column vary)
+	for(int j=0;j<=n;j++){
+		output[0][j]=0;
+	}
+
+	//Filling of column (row vary)
+    for(int i=0;i<=m;i++){
+		output[i][0]=0;
+	}
+
+	for(int i=1;i<=m;i++){
+		for(int j=1;j<=n;j++){
+			if(s[m-i]==t[n-j]){
+				output[i][j]=1+output[i-1][j-1];
+			}
+			else{
+				int a=output[i-1][j];
+				int b=output[i][j-1];
+				int c=output[i-1][j-1];
+				output[i][j]=max(a,max(b,c));
+			}
+		}
+	}
+	return output[m][n];
+
+
+
+}
+int main(){
+	string s;
+	string t;
+	cout<<"Enter the strings "<<endl;
+	cin>>s>>t;
+
+	cout<<"Final ans is "<<lcs_DP(s,t);
+
+return 0;
+}
