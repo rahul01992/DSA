@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+int solve(vector<int> &weight, vector<int> &value, int n, int capacity){
+    //Base case
+    if(n==0){
+        // if knapsack has capacity to store the last element
+        if(weight[0]<=capacity){
+            return value[0];//then include kr lo
+        }
+        else{
+            return 0;//otherwise exclude kr lo
+        }
+    }
+    int include=0;
+    if(weight[n]<=capacity){
+        include=value[n]+solve(weight,value,n-1,capacity-weight[n]);//include ( max weight decrease by curr weight value)
+    }
+    int exclude=solve(weight,value,n-1,capacity);//exclude
+    return max(include,exclude);
+}
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	return solve(weight,value,n-1,maxWeight);
+}
