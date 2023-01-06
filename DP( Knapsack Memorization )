@@ -1,0 +1,56 @@
+#include <bits/stdc++.h> 
+int solve(vector<int> &weight, vector<int> &value, int n, int capacity){
+    //Base case
+    if(n==0){
+        // if knapsack has capacity to store the last element
+        if(weight[0]<=capacity){
+            return value[0];//then include kr lo
+        }
+        else{
+            return 0;//otherwise exclude kr lo
+        }
+    }
+    int include=0;
+    if(weight[n]<=capacity){
+        include=value[n]+solve(weight,value,n-1,capacity-weight[n]);//include ( max weight decrease by curr weight value)
+    }
+    int exclude=solve(weight,value,n-1,capacity);//exclude
+    return max(include,exclude);
+}
+
+int solve_Mem(vector<int> &weight, vector<int> &value, int n, int capacity,int **dp){
+    //Base case
+    if(n==0){
+        // if knapsack has capacity to store the last element
+        if(weight[0]<=capacity){
+            return value[0];//then include kr lo
+        }
+        else{
+            return 0;//otherwise exclude kr lo
+        }
+    }
+    //check if ans is already exist
+    if(dp[n][capacity]!=-1){
+        return dp[n][capacity];
+    }
+    int include=0;
+    if(weight[n]<=capacity){
+        include=value[n]+solve_Mem(weight,value,n-1,capacity-weight[n],dp);//include ( max weight decrease by curr weight value)
+    }
+    int exclude=solve_Mem(weight,value,n-1,capacity,dp);//exclude
+    int ans= max(include,exclude);
+    dp[n][capacity]=ans;
+    return ans;
+}
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+    //Creation of 2-D DP array (because two variables has changed the state)
+    int **dp=new int*[n+1];//n rows
+    for(int i=0;i<=n;i++){
+        dp[i]=new int [maxWeight+1];//maxWeight+1 column
+        for(int j=0;j<=maxWeight;j++){
+            dp[i][j]=-1;
+        }
+    }
+	return solve_Mem(weight,value,n-1,maxWeight,dp);
+}
