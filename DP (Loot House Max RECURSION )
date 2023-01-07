@@ -1,0 +1,19 @@
+int maxMoneyLooted_helper(int *arr, int n,int count)
+{
+	if(count<=0){
+		return 0;
+	}
+	
+	//if pick
+	int include=arr[0]+maxMoneyLooted_helper(arr+2,  n,count-2);
+	//if not pick
+	int exclude=maxMoneyLooted_helper(arr+1, n,--count);
+	return max(include,exclude);
+	
+}
+
+int maxMoneyLooted(int *arr,int n){
+	int count=n;
+	
+	return maxMoneyLooted_helper(arr,  n,count);
+}
