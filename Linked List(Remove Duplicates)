@@ -24,3 +24,27 @@ Node *removeDuplicates(Node *head) {
         }
 		return head;
 }
+
+
+// HACKERRANK PRACTICE CODE (updated)
+SinglyLinkedListNode* removeDuplicates(SinglyLinkedListNode* llist) {
+    if(llist->next==NULL){
+        return llist;
+    }
+    SinglyLinkedListNode* temp=llist;
+    while(temp->next!=NULL){
+        if(temp->data==temp->next->data){
+            SinglyLinkedListNode* nodeToDeleted=temp->next;
+            
+            temp->next=temp->next->next;
+            
+            nodeToDeleted->next=NULL;
+            delete nodeToDeleted;
+        
+        }
+        else{
+            temp=temp->next;
+        }
+    }
+    return llist;
+}
