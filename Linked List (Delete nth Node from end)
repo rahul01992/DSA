@@ -1,4 +1,4 @@
-class Solution {
+class Solution {//*****THIS QUESTION CAN ALSO BE DONE USING FAST POINTER*****
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         if(head==NULL){
